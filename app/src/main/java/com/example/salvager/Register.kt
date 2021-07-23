@@ -3,8 +3,6 @@ package com.example.salvager
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.text.TextUtils
-import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
@@ -36,7 +34,7 @@ class Register : AppCompatActivity() {
     }
 
     private fun initialise() {
-        var btnCreateAccount = findViewById<View>(id.signup_button) as Button
+        val btnCreateAccount = findViewById<View>(id.signup_button) as Button
 
         mDatabase = FirebaseDatabase.getInstance()
         mDatabaseReference = mDatabase!!.reference.child("Users")
@@ -45,55 +43,39 @@ class Register : AppCompatActivity() {
     }
 
     private fun createNewAccount() {
-        var etFirstName = findViewById<View>(id.name) as EditText
-        var etEmail = findViewById<View>(id.email) as EditText
-        var etPassword = findViewById<View>(id.password) as EditText
-        var etPhone = findViewById<View>(R.id.phone) as EditText
-        firstName = etFirstName.text.toString()
-        email = etEmail.text.toString()
-        password = etPassword.text.toString()
-        phoneNo = etPhone.text.toString()
+        val etFirstName = findViewById<View>(id.name) as EditText
+        val etEmail = findViewById<View>(id.email) as EditText
+        val etPassword = findViewById<View>(id.password) as EditText
+        val etPhone = findViewById<View>(R.id.phone) as EditText
+        firstName = etFirstName.text.toString().trim()
+        email = etEmail.text.toString().trim()
+        password = etPassword.text.toString().trim()
+        phoneNo = etPhone.text.toString().trim()
 
-        if (!TextUtils.isEmpty(firstName) && !TextUtils.isEmpty(phoneNo)
-            && !TextUtils.isEmpty(email) && !TextUtils.isEmpty(password)) {
-
-            mAuth!!
-                .createUserWithEmailAndPassword(email!!, password!!)
-                .addOnCompleteListener(this) { task ->
-
-                    if (task.isSuccessful) {
-                        // Sign in success, update UI with the signed-in user's information
-                        Log.d(TAG, "createUserWithEmail:success")
-
-                        val userId = mAuth!!.currentUser!!.uid
-
-                        //update user profile information
-
-                        val ref=FirebaseDatabase.getInstance().getReference("users")
-                        val userID=ref.push().key
-                        val user= userID?.let { Users(it, firstName!!, email!!, phoneNo!!) }
-
-                        ref.child(userId).setValue(user).addOnCanceledListener {
-                            Toast.makeText(this, "Registering User",Toast.LENGTH_LONG).show()
-                            var intent=Intent(this,MainAcitivity::class.java)
-                            startActivity(intent)
-                        }
-
-                    } else {
-                        // If sign in fails, display a message to the user.
-                        Log.w(TAG, "createUserWithEmail:failure", task.exception)
-                        Toast.makeText(this, "Authentication failed.", Toast.LENGTH_SHORT).show()
-                    }
-                }
-        } else {
-            Toast.makeText(this, "Enter all details", Toast.LENGTH_SHORT).show()
+        if(firstName!!.isEmpty()){
+            Toast.makeText(this, "Please enter a name", Toast.LENGTH_SHORT).show()
         }
-    }
+        if(email!!.isEmpty()){
+            Toast.makeText(this, "Please enter a email", Toast.LENGTH_SHORT).show()
+        }
+        if(password!!.isEmpty()){
+            Toast.makeText(this, "Please enter a password", Toast.LENGTH_SHORT).show()
+        }
+        if(phoneNo!!.isEmpty()){
+            Toast.makeText(this, "Please enter a phone no.", Toast.LENGTH_SHORT).show()
+        }
 
-    private fun updateUserInfoAndUI() {
-        val intent = Intent(this, MainAcitivity::class.java)
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-        startActivity(intent)
+        val ref=FirebaseDatabase.getInstance().getReference("Members")
+        val userId = ref.push().key
+        val member= userId?.let { Members(it, firstName!!, password!!, email!!, phoneNo!!) }
+
+        if (userId != null) {
+            ref.child(userId).setValue(member).addOnCanceledListener {
+                Toast.makeText(this,"User registered successful",Toast.LENGTH_LONG).show()
+                val intent=Intent(applicationContext,MainAcitivity::class.java)
+                startActivity(intent)
+            }
+        }
     }
 
     fun signup_page(view: View) {

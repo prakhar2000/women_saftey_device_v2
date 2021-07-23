@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
@@ -12,6 +13,9 @@ import android.widget.TextView
 import android.widget.Toast
 import com.example.salvager.R.layout
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.ktx.Firebase
 
 class MainAcitivity : AppCompatActivity() {
 
@@ -29,11 +33,17 @@ class MainAcitivity : AppCompatActivity() {
 
     //Firebase references
     private var mAuth: FirebaseAuth? = null
+    private lateinit var database:FirebaseDatabase
+    private lateinit var reference: DatabaseReference
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(layout.activity_main)
 
         initialise()
+        database= FirebaseDatabase.getInstance()
+        reference=database.getReference("Members")
     }
 
     private fun initialise() {
@@ -55,22 +65,8 @@ class MainAcitivity : AppCompatActivity() {
 
         if (!TextUtils.isEmpty(email) && !TextUtils.isEmpty(password)) {
 
-            Log.d(TAG, "Logging in user.")
 
-            mAuth!!.signInWithEmailAndPassword(email!!, password!!)
-                .addOnCompleteListener(this) { task ->
 
-                    if (task.isSuccessful) {
-                        // Sign in success, update UI with signed-in user's information
-                        Log.d(TAG, "signInWithEmail:success")
-                        updateUI()
-                    } else {
-                        // If sign in fails, display a message to the user.
-                        Log.e(TAG, "signInWithEmail:failure", task.exception)
-                        Toast.makeText(this, "Authentication failed.",
-                            Toast.LENGTH_SHORT).show()
-                    }
-                }
         } else {
             Toast.makeText(this, "Enter all details", Toast.LENGTH_SHORT).show()
         }
