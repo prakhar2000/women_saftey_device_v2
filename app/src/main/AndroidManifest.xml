@@ -9,11 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Salvager">
-        <activity android:name=".HomePage">
-
-        </activity>
+        <activity android:name=".emergency_contacts" />
+        <activity android:name=".HomePage" />
         <activity android:name=".Register" />
-        <activity android:name=".Profile" />
         <activity android:name=".MainAcitivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

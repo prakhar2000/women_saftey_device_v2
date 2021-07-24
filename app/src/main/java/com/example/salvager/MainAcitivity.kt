@@ -3,9 +3,8 @@ package com.example.salvager
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.ContactsContract.Profile
 import android.text.TextUtils
-import android.util.Log
-import android.view.LayoutInflater
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
@@ -15,11 +14,8 @@ import com.example.salvager.R.layout
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.ktx.Firebase
 
 class MainAcitivity : AppCompatActivity() {
-
-    private val TAG = "LoginActivity"
 
     //global variables
     private var email: String? = null
@@ -42,8 +38,6 @@ class MainAcitivity : AppCompatActivity() {
         setContentView(layout.activity_main)
 
         initialise()
-        database= FirebaseDatabase.getInstance()
-        reference=database.getReference("Members")
     }
 
     private fun initialise() {
@@ -64,18 +58,19 @@ class MainAcitivity : AppCompatActivity() {
         password = etPassword?.text.toString()
 
         if (!TextUtils.isEmpty(email) && !TextUtils.isEmpty(password)) {
-
-
-
+            mAuth!!.signInWithEmailAndPassword(email!!, password!!)
+                .addOnCompleteListener(this) { task ->
+                    if (task.isSuccessful) {
+                        Toast.makeText(this,"Login Successful",Toast.LENGTH_SHORT).show()
+                        val intent= Intent(this, Profile::class.java)
+                        startActivity(intent)
+                    } else {
+                        Toast.makeText(this,"Enter correct username or passowrd",Toast.LENGTH_LONG).show()
+                    }
+                }
         } else {
             Toast.makeText(this, "Enter all details", Toast.LENGTH_SHORT).show()
         }
-    }
-
-    private fun updateUI() {
-        val intent = Intent(this, Profile::class.java)
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-        startActivity(intent)
     }
 
     fun profileLogin(view: View) {
