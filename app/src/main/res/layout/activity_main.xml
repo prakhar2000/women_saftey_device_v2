@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="#000000"
     android:scrollbarTrackHorizontal="@drawable/ic_baseline_email_24"
     android:scrollbarTrackVertical="@drawable/ic_baseline_email_24"
     tools:context=".MainAcitivity">
@@ -63,14 +63,13 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/email" />
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/login_button"
         android:layout_width="wrap_content"
         android:layout_height="50dp"
         android:layout_marginTop="8dp"
         android:width="300dp"
         android:background="@drawable/button_border"
-        android:backgroundTint="#686F89"
         android:onClick="profileLogin"
         android:text="Log In"
         android:textAllCaps="false"
@@ -91,28 +90,19 @@
         android:layout_marginTop="8dp"
         android:onClick="signUp"
         android:text="Sign Up"
-        android:textColor="#706E6E"
+        android:textColor="#FFFFFF"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/login_button" />
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="sans-serif-black"
-        android:text="SALVAGER"
-        android:textAlignment="textStart"
-        android:textColor="#686F89"
-        android:textColorHighlight="#686F89"
-        android:textColorHint="#686F89"
-        android:textColorLink="#686F89"
-        android:textSize="34sp"
-        android:textStyle="bold"
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="160dp"
+        android:layout_gravity="center"
+        android:scaleType="centerInside"
         app:layout_constraintBottom_toTopOf="@+id/email"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/logo" />
 </androidx.constraintlayout.widget.ConstraintLayout>
 

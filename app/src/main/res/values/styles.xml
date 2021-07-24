@@ -2,9 +2,9 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">#686F89</item>
-        <item name="colorPrimaryVariant">#686F89</item>
-        <item name="colorOnPrimary">#686F89</item>
+        <item name="colorPrimary">#1A87DF</item>
+        <item name="colorPrimaryVariant">#1A87DF</item>
+        <item name="colorOnPrimary">#1A87DF</item>
         <!-- Customize your theme here. -->
     </style>
 </resources>

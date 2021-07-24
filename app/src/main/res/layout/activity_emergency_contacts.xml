@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#EEF1FA">
+    android:background="#000000">
 
     <EditText
         android:id="@+id/number1"
@@ -63,52 +63,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/number2" />
 
-    <EditText
-        android:id="@+id/number4"
-        android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        android:width="300dp"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/custom_edit_text_rounded"
-        android:drawableLeft="@drawable/ic_baseline_phone_24"
-        android:drawablePadding="12dp"
-        android:ems="10"
-        android:paddingStart="12dp"
-        android:paddingEnd="12dp"
-        android:textSize="20sp"
-        android:hint="Number 4"
-        android:inputType="phone"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/number3" />
 
-    <EditText
-        android:id="@+id/number5"
-        android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        android:width="300dp"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/custom_edit_text_rounded"
-        android:drawableLeft="@drawable/ic_baseline_phone_24"
-        android:drawablePadding="12dp"
-        android:ems="10"
-        android:paddingStart="12dp"
-        android:paddingEnd="12dp"
-        android:textSize="20sp"
-        android:hint="Number 5"
-        android:inputType="phone"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/number4" />
-
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/add_contacts"
         android:layout_width="wrap_content"
         android:layout_height="50dp"
         android:width="300dp"
         android:layout_marginTop="8dp"
         android:background="@drawable/button_border"
-        android:backgroundTint="#686F89"
         android:onClick="signup_page"
         android:text="Add"
         android:textAllCaps="false"
@@ -120,7 +82,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/number5" />
+        app:layout_constraintTop_toBottomOf="@+id/number3"/>
 
     <TextView
         android:id="@+id/emergency_contacts"

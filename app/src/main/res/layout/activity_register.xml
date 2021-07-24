@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="#000000"
     tools:context=".Register">
 
     <EditText
@@ -107,14 +107,13 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/password" />
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/signup_button"
         android:layout_width="wrap_content"
         android:layout_height="50dp"
         android:width="300dp"
         android:layout_marginTop="8dp"
         android:background="@drawable/button_border"
-        android:backgroundTint="#686F89"
         android:onClick="signup_page"
         android:text="Sign Up"
         android:textAllCaps="false"
@@ -136,32 +135,21 @@
         android:backgroundTint="#2C2A35"
         android:onClick="login_page"
         android:text="Log In"
-        android:textColor="#706E6E"
+        android:textColor="#FFFFFF"
         android:textSize="20sp"
         app:iconTint="#2C2A35"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/signup_button" />
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="sans-serif-black"
-        android:text="SALVAGER"
-        android:textAlignment="textStart"
-        android:textColor="#686F89"
-        android:textColorHighlight="#686F89"
-        android:textColorHint="#686F89"
-        android:textColorLink="#686F89"
-        android:textSize="34sp"
-        android:textStyle="bold"
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="160dp"
+        android:layout_gravity="center"
+        android:scaleType="centerInside"
         app:layout_constraintBottom_toTopOf="@+id/name"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.584" />
+        app:srcCompat="@drawable/logo" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
