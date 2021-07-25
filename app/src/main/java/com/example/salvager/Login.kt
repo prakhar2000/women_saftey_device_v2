@@ -15,7 +15,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 
-class MainAcitivity : AppCompatActivity() {
+class Login : AppCompatActivity() {
 
     //global variables
     private var email: String? = null
@@ -35,7 +35,7 @@ class MainAcitivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(layout.activity_main)
+        setContentView(layout.activity_login)
 
         initialise()
     }
@@ -53,7 +53,6 @@ class MainAcitivity : AppCompatActivity() {
     }
 
     private fun loginUser() {
-
         email = etEmail?.text.toString()
         password = etPassword?.text.toString()
 
@@ -65,7 +64,7 @@ class MainAcitivity : AppCompatActivity() {
                         val intent= Intent(this, Profile::class.java)
                         startActivity(intent)
                     } else {
-                        Toast.makeText(this,"Enter correct username or passowrd",Toast.LENGTH_LONG).show()
+                        Toast.makeText(this,"Enter correct username or password",Toast.LENGTH_LONG).show()
                     }
                 }
         } else {

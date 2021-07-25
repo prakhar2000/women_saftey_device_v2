@@ -8,7 +8,7 @@
     android:background="#000000"
     android:scrollbarTrackHorizontal="@drawable/ic_baseline_email_24"
     android:scrollbarTrackVertical="@drawable/ic_baseline_email_24"
-    tools:context=".MainAcitivity">
+    tools:context=".Login">
 
 
     <EditText

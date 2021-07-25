@@ -12,8 +12,6 @@ import com.example.salvager.R.id
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.ktx.Firebase
-import com.google.firebase.storage.FirebaseStorage
 
 class Register : AppCompatActivity() {
     //Firebase references
@@ -81,7 +79,7 @@ class Register : AppCompatActivity() {
                         if (userId != null) {
                             ref.child(userId).setValue(member).addOnCanceledListener {
                                 Toast.makeText(this,"User registered successful",Toast.LENGTH_LONG).show()
-                                val intent=Intent(applicationContext,MainAcitivity::class.java)
+                                val intent=Intent(applicationContext,Login::class.java)
                                 startActivity(intent)
                             }
                         }
@@ -100,12 +98,12 @@ class Register : AppCompatActivity() {
 
     fun signup_page(view: View) {
         Toast.makeText(this, "Registartion Successful!",Toast.LENGTH_LONG).show()
-        var intent= Intent(this, MainAcitivity::class.java)
+        var intent= Intent(this, Login::class.java)
         startActivity(intent)
     }
 
     fun login_page(view: View) {
-        var intent= Intent(this, MainAcitivity::class.java)
+        var intent= Intent(this, Login::class.java)
         startActivity(intent)
     }
 }
