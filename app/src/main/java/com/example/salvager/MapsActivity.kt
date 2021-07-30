@@ -15,6 +15,8 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.example.salvager.databinding.ActivityMapsBinding
+import com.google.firebase.auth.FirebaseAuth
+import kotlinx.android.synthetic.main.activity_maps.*
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var map: GoogleMap
@@ -56,11 +58,26 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
 
         val addEmergencyContacts= findViewById<TextView>(id.add_emergency_contacts)
-        addEmergencyContacts.setOnClickListener{onclick()}
+        addEmergencyContacts.setOnClickListener{onclickec()}
+
+        val profilemem=findViewById<TextView>(id.profile)
+        profilemem.setOnClickListener{onclickpro()}
+
+
+        sign_out.setOnClickListener {
+            FirebaseAuth.getInstance().signOut()
+
+            startActivity(Intent(this,LoginActivity::class.java))
+            finish()
+        }
     }
 
-    private fun onclick() {
+    private fun onclickec() {
         startActivity(Intent(this, emergency_contacts::class.java))
+    }
+
+    private fun onclickpro() {
+        startActivity(Intent(this, profileActivity::class.java))
     }
 
     /**

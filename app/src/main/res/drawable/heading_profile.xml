@@ -13,9 +13,9 @@
     <!--The outline turns to grey when the EditText is out of focus-->
     <item android:state_enabled="true">
         <shape android:shape="rectangle">
-            <solid android:color="#1A87DF" />
+            <solid android:color="#000000" />
             <corners android:radius="0dp" />
-            <stroke android:width="2dp" android:color="#1A87DF" />
+            <stroke android:width="2dp" android:color="#000000" />
         </shape>
     </item>
 

@@ -8,11 +8,11 @@
     android:background="#000000"
     android:scrollbarTrackHorizontal="@drawable/ic_baseline_email_24"
     android:scrollbarTrackVertical="@drawable/ic_baseline_email_24"
-    tools:context=".Login">
+    tools:context=".LoginActivity">
 
 
     <EditText
-        android:id="@+id/email"
+        android:id="@+id/emailtext"
         android:layout_width="wrap_content"
         android:layout_height="50dp"
         android:width="300dp"
@@ -37,7 +37,7 @@
         app:layout_constraintVertical_bias="0.469" />
 
     <EditText
-        android:id="@+id/password"
+        android:id="@+id/passwordtext"
         android:layout_width="wrap_content"
         android:layout_height="50dp"
         android:layout_marginTop="8dp"
@@ -61,7 +61,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/email" />
+        app:layout_constraintTop_toBottomOf="@+id/emailtext" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/login_button"
@@ -70,7 +70,7 @@
         android:layout_marginTop="8dp"
         android:width="300dp"
         android:background="@drawable/button_border"
-        android:onClick="profileLogin"
+
         android:text="Log In"
         android:textAllCaps="false"
         android:textColor="#FFFFFF"
@@ -81,14 +81,14 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/password" />
+        app:layout_constraintTop_toBottomOf="@+id/passwordtext" />
 
     <TextView
         android:id="@+id/signup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:onClick="signUp"
+
         android:text="Sign Up"
         android:textColor="#FFFFFF"
         android:textSize="20sp"
@@ -101,7 +101,7 @@
         android:layout_height="160dp"
         android:layout_gravity="center"
         android:scaleType="centerInside"
-        app:layout_constraintBottom_toTopOf="@+id/email"
+        app:layout_constraintBottom_toTopOf="@+id/emailtext"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/logo" />
 </androidx.constraintlayout.widget.ConstraintLayout>

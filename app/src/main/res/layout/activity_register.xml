@@ -5,15 +5,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#000000"
-    tools:context=".Register">
+    tools:context=".RegisterActivity">
 
     <EditText
-        android:id="@+id/name"
+        android:id="@+id/namereg"
         android:layout_width="wrap_content"
         android:layout_height="50dp"
         android:width="300dp"
         android:background="@drawable/custom_edit_text_rounded"
-        android:drawableLeft="@drawable/ic_baseline_person_24"
+        android:drawableLeft="@drawable/ic_baseline_person_black"
         android:drawablePadding="12dp"
         android:ems="10"
         android:hint="Name"
@@ -34,7 +34,7 @@
         app:layout_constraintVertical_bias="0.465" />
 
     <EditText
-        android:id="@+id/email"
+        android:id="@+id/emailreg"
         android:layout_width="wrap_content"
         android:layout_height="50dp"
         android:width="300dp"
@@ -56,11 +56,11 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/name"
+        app:layout_constraintTop_toBottomOf="@+id/namereg"
         app:layout_constraintVertical_bias="0.0" />
 
     <EditText
-        android:id="@+id/password"
+        android:id="@+id/passwordreg"
         android:layout_width="wrap_content"
         android:layout_height="50dp"
         android:width="300dp"
@@ -82,10 +82,10 @@
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/email" />
+        app:layout_constraintTop_toBottomOf="@+id/emailreg" />
 
     <EditText
-        android:id="@+id/phone"
+        android:id="@+id/phonereg"
         android:layout_width="wrap_content"
         android:layout_height="50dp"
         android:width="300dp"
@@ -105,7 +105,7 @@
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/password" />
+        app:layout_constraintTop_toBottomOf="@+id/passwordreg" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/signup_button"
@@ -114,7 +114,7 @@
         android:width="300dp"
         android:layout_marginTop="8dp"
         android:background="@drawable/button_border"
-        android:onClick="signup_page"
+
         android:text="Sign Up"
         android:textAllCaps="false"
         android:textColor="#FFFFFF"
@@ -125,31 +125,44 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/phone" />
+        app:layout_constraintTop_toBottomOf="@+id/phonereg" />
 
-    <TextView
-        android:id="@+id/login_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:backgroundTint="#2C2A35"
-        android:onClick="login_page"
-        android:text="Log In"
-        android:textColor="#FFFFFF"
-        android:textSize="20sp"
-        app:iconTint="#2C2A35"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/signup_button" />
+<!--    <TextView-->
+<!--        android:id="@+id/login_button"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="8dp"-->
+<!--        android:backgroundTint="#2C2A35"-->
+<!--        android:onClick="login_page"-->
+<!--        android:text="Log In"-->
+<!--        android:textColor="#FFFFFF"-->
+<!--        android:textSize="20sp"-->
+<!--        app:iconTint="#2C2A35"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/signup_button" />-->
 
     <ImageView
+        android:id="@+id/imageView2"
         android:layout_width="match_parent"
         android:layout_height="160dp"
         android:layout_gravity="center"
         android:scaleType="centerInside"
-        app:layout_constraintBottom_toTopOf="@+id/name"
+        app:layout_constraintBottom_toTopOf="@+id/namereg"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/logo" />
+
+    <ImageView
+        android:id="@+id/backarrow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_baseline_arrow_back_24"
+        app:layout_constraintBottom_toTopOf="@+id/imageView2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.08"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.518" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

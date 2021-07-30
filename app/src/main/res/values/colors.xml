@@ -10,4 +10,9 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="logblue">#1A87DF</color>
+    <color name="startblue">#1A87DF</color>
+
+    <color name="endblue">#ffffff</color>
+
 </resources>

@@ -6,8 +6,9 @@
     android:layout_height="match_parent"
     android:background="#000000">
 
+
     <EditText
-        android:id="@+id/number1"
+        android:id="@+id/etv1"
         android:layout_width="wrap_content"
         android:layout_height="50dp"
         android:width="300dp"
@@ -16,72 +17,77 @@
         android:drawablePadding="12dp"
         android:ems="10"
         android:hint="Number 1"
+        android:inputType="phone"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp"
         android:textColor="#FF706E6E"
         android:textColorHighlight="#FF706E6E"
         android:textColorHint="#FF706E6E"
         android:textColorLink="#FF706E6E"
-        android:inputType="phone"
-        android:paddingStart="12dp"
-        android:paddingEnd="12dp"
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/btn"
+        app:layout_constraintBottom_toBottomOf="@+id/btn"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/emergency_contacts" />
+        app:layout_constraintTop_toBottomOf="@+id/emergency_contacts"
+        app:layout_constraintVertical_bias="0.307" />
+
 
     <EditText
-        android:id="@+id/number2"
+        android:id="@+id/etv3"
         android:layout_width="wrap_content"
         android:layout_height="50dp"
         android:width="300dp"
-        android:layout_marginTop="8dp"
         android:background="@drawable/custom_edit_text_rounded"
         android:drawableLeft="@drawable/ic_baseline_phone_24"
         android:drawablePadding="12dp"
         android:ems="10"
-        android:paddingStart="12dp"
-        android:textColor="#FF706E6E"
-        android:textColorHighlight="#FF706E6E"
-        android:textColorHint="#FF706E6E"
-        android:textColorLink="#FF706E6E"
-        android:paddingEnd="12dp"
-        android:textSize="20sp"
-        android:hint="Number 2"
-        android:inputType="phone"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/number1" />
-
-    <EditText
-        android:id="@+id/number3"
-        android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        android:width="300dp"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/custom_edit_text_rounded"
-        android:drawableLeft="@drawable/ic_baseline_phone_24"
-        android:drawablePadding="12dp"
-        android:ems="10"
-        android:paddingStart="12dp"
-        android:paddingEnd="12dp"
-        android:textColor="#FF706E6E"
-        android:textColorHighlight="#FF706E6E"
-        android:textColorHint="#FF706E6E"
-        android:textColorLink="#FF706E6E"
-        android:textSize="20sp"
         android:hint="Number 3"
         android:inputType="phone"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp"
+        android:textColor="#FF706E6E"
+        android:textColorHighlight="#FF706E6E"
+        android:textColorHint="#FF706E6E"
+        android:textColorLink="#FF706E6E"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/btn"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/number2" />
+        app:layout_constraintTop_toBottomOf="@+id/emergency_contacts"
+        app:layout_constraintVertical_bias="0.516" />
 
+    <EditText
+        android:id="@+id/etv2"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:width="300dp"
+        android:background="@drawable/custom_edit_text_rounded"
+        android:drawableLeft="@drawable/ic_baseline_phone_24"
+        android:drawablePadding="12dp"
+        android:ems="10"
+        android:hint="Number 2"
+        android:inputType="phone"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp"
+        android:textColor="#FF706E6E"
+        android:textColorHighlight="#FF706E6E"
+        android:textColorHint="#FF706E6E"
+        android:textColorLink="#FF706E6E"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/btn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etv1"
+        app:layout_constraintVertical_bias="0.044" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/add_contacts"
         android:layout_width="wrap_content"
         android:layout_height="50dp"
         android:width="300dp"
-        android:layout_marginTop="8dp"
         android:background="@drawable/button_border"
         android:text="Add"
         android:textAllCaps="false"
@@ -90,10 +96,12 @@
         android:textColorHint="#FFFFFF"
         android:textColorLink="#FFFFFF"
         android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/button"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/number3"/>
+        app:layout_constraintTop_toBottomOf="@+id/etv1"
+        app:layout_constraintVertical_bias="0.563" />
 
     <TextView
         android:id="@+id/emergency_contacts"
@@ -127,7 +135,7 @@
         android:layout_marginBottom="20sp"
         android:background="@drawable/round_button"
         android:text="SOS"
-        android:textColor="#FFFFFF"
+        android:textColor="#000000"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/btn"
         app:layout_constraintEnd_toEndOf="parent"
@@ -179,5 +187,10 @@
         app:layout_constraintStart_toStartOf="@+id/btn"
         app:layout_editor_absoluteX="50dp"
         tools:ignore="MissingConstraints" />
+
+
+
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
