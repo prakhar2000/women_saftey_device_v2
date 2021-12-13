@@ -2,10 +2,16 @@ package com.example.salvager
 
 import android.Manifest.permission
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.content.pm.PackageManager
+import android.location.Location
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.telephony.SmsManager
+import android.view.View
+import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
@@ -15,27 +21,207 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.example.salvager.databinding.ActivityMapsBinding
+import com.google.android.gms.location.*
+import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.MarkerOptions
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.*
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.activity_maps.*
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
+
     private lateinit var map: GoogleMap
     private lateinit var binding: ActivityMapsBinding
 
+private lateinit var aec: Button
+    //----------------------------------------------------
+
+    lateinit var context: Context
+    var firebaseDatabase: FirebaseDatabase? = null
+
+    // creating a variable for our
+    // Database Reference for Firebase.
+    var databaseReference: DatabaseReference? = null
+
+    // variable for Text view.
+    private var retriveTV: TextView? = null
+
+    //----------------------------------------------------
+
     private val LOCATION_PERMISSION_REQUEST = 1
+    private lateinit var fusedLocationClient: FusedLocationProviderClient
+    private lateinit var locationRequest: LocationRequest
+    private lateinit var locationCallback: LocationCallback
 
     private fun getLocationAccess() {
-        if (ContextCompat.checkSelfPermission(this, permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+        if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             map.isMyLocationEnabled = true
+            getLocationUpdates()
+            startLocationUpdates()
         }
         else
-            ActivityCompat.requestPermissions(this, arrayOf(permission.ACCESS_FINE_LOCATION), LOCATION_PERMISSION_REQUEST)
+            ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION), LOCATION_PERMISSION_REQUEST)
     }
 
-    @SuppressLint("MissingPermission", "MissingSuperCall")
+    private fun getLocationUpdates() {
+        locationRequest = LocationRequest()
+        locationRequest.interval = 30000
+        locationRequest.fastestInterval = 20000
+        locationRequest.priority = LocationRequest.PRIORITY_HIGH_ACCURACY
+
+        locationCallback = object : LocationCallback() {
+            override fun onLocationResult(locationResult: LocationResult) {
+                if (locationResult.locations.isNotEmpty()) {
+                    val location = locationResult.lastLocation
+                    if (location != null) {
+                        val latLng = LatLng(location.latitude, location.longitude)
+
+                        Toast.makeText(context , latLng.toString(),Toast.LENGTH_LONG).show()
+                        val markerOptions = MarkerOptions().position(latLng)
+                        map.addMarker(markerOptions)
+                        map.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15f))
+                    }
+
+                }
+            }
+        }
+    }
+
+    private fun startLocationUpdates() {
+        if (ActivityCompat.checkSelfPermission(
+                this,
+                permission.ACCESS_FINE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+                this,
+                permission.ACCESS_COARSE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return
+        }
+        if (ActivityCompat.checkSelfPermission(
+                this,
+                permission.ACCESS_FINE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+                this,
+                permission.ACCESS_COARSE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return
+        }
+        fusedLocationClient.requestLocationUpdates(locationRequest, locationCallback, null)
+    }
+
+
+    //------------------------------------------------------main functn-------------------
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+
+        //---------------------------------------------------------------
+        // below line is used to get the instance
+        // of our Firebase database.
+        firebaseDatabase = FirebaseDatabase.getInstance()
+
+        // below line is used to get
+        // reference for our database.
+        databaseReference = firebaseDatabase!!.getReference("Data")
+
+        // initializing our object class variable.
+        //retriveTV = findViewById(R.id.idTVRetriveData)
+
+        // calling method
+        // for getting data.
+        context=this
+        getdata()
+        //---------------------------------------------------------------
+        val mPrefs: SharedPreferences = getSharedPreferences("numbers", 0)
+        val num1 = mPrefs.getString("number1","").toString()
+        val num2 = mPrefs.getString("number2","").toString()
+        val num3 = mPrefs.getString("number3","").toString()
+
+        Toast.makeText(context , num1.toString(),Toast.LENGTH_LONG).show()
+
+        Toast.makeText(context , num3.toString(),Toast.LENGTH_LONG).show()
+
+        Toast.makeText(context , num2.toString(),Toast.LENGTH_LONG).show()
+
+        //----------------------------------------------------
+
+//
+//
+//        val profilemem= findViewById<TextView>(R.id.profile)
+//        profilemem.setOnClickListener{onclickpro()}
+
+//         aec= findViewById<Button>(R.id.button2)!!
+//        aec.setOnClickListener{}
+//        aec.setOnClickListener(View.OnClickListener { })
+
+//        val homepage=findViewById<TextView>(R.id.home)
+//        homepage.setOnClickListener{ onclickhome() }
+
+
+
+        binding = ActivityMapsBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
+        val mapFragment = supportFragmentManager
+            .findFragmentById(R.id.map2) as SupportMapFragment
+        mapFragment.getMapAsync(this)
+
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
+    }
+
+    private fun onclickaec() {
+        startActivity(
+            Intent(
+                this,
+                com.example.salvager.emergency_contacts::class.java
+            )
+        )
+    }
+
+
+    //----------------------------------------------------
+
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == LOCATION_PERMISSION_REQUEST) {
             if (grantResults.contains(PackageManager.PERMISSION_GRANTED)) {
+                if (ActivityCompat.checkSelfPermission(
+                        this,
+                        permission.ACCESS_FINE_LOCATION
+                    ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+                        this,
+                        permission.ACCESS_COARSE_LOCATION
+                    ) != PackageManager.PERMISSION_GRANTED
+                ) {
+                    // TODO: Consider calling
+                    //    ActivityCompat#requestPermissions
+                    // here to request the missing permissions, and then overriding
+                    //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                    //                                          int[] grantResults)
+                    // to handle the case where the user grants the permission. See the documentation
+                    // for ActivityCompat#requestPermissions for more details.
+                    return
+                }
                 map.isMyLocationEnabled = true
             }
             else {
@@ -43,41 +229,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                 finish()
             }
         }
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        binding = ActivityMapsBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-
-        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
-        val mapFragment = supportFragmentManager
-            .findFragmentById(id.map) as SupportMapFragment
-        mapFragment.getMapAsync(this)
-
-
-        val addEmergencyContacts= findViewById<TextView>(id.add_emergency_contacts)
-        addEmergencyContacts.setOnClickListener{onclickec()}
-
-        val profilemem=findViewById<TextView>(id.profile)
-        profilemem.setOnClickListener{onclickpro()}
-
-
-        sign_out.setOnClickListener {
-            FirebaseAuth.getInstance().signOut()
-
-            startActivity(Intent(this,LoginActivity::class.java))
-            finish()
-        }
-    }
-
-    private fun onclickec() {
-        startActivity(Intent(this, emergency_contacts::class.java))
-    }
-
-    private fun onclickpro() {
-        startActivity(Intent(this, profileActivity::class.java))
     }
 
     /**
@@ -92,5 +243,73 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     override fun onMapReady(googleMap: GoogleMap) {
         map = googleMap
         getLocationAccess()
+    }
+
+    private fun getdata() {
+
+        // calling add value event listener method
+        // for getting the values from database.
+        databaseReference!!.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                // this method is call to get the realtime
+                // updates in the data.
+                // this method is called when the data is
+                // changed in our Firebase console.
+                // below line is for getting the data from
+                // snapshot of our database.
+                val value = snapshot.getValue(Int::class.java)
+
+                if (value != null) {
+                    if(value>400){
+                        //                    val value2=heart rate ki
+
+                    }
+                }
+                // after getting the value we are setting
+                // our value to our text view in below line.
+//                if(value == "blue"){
+//                    Toast.makeText(context , "reached",Toast.LENGTH_LONG).show()
+////                    val intent = Intent(context, GoodTouch::class.java)
+////                    startActivity(intent)
+//                }
+//                else if(value == "black"){
+//                    Toast.makeText(context , "reached",Toast.LENGTH_LONG).show()
+////                    val intent = Intent(context, BadTouch::class.java)
+////                    startActivity(intent)
+//                }
+
+                Toast.makeText(context , value.toString(),Toast.LENGTH_LONG).show()
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                // calling on cancelled method when we receive
+                // any error or we are not able to get the data.
+                Toast.makeText(this@MapsActivity, "Fail to get data.", Toast.LENGTH_SHORT).show()
+            }
+        })
+    }
+
+    fun sendlocation(phonenumber: String, currentlocation: Location){
+        var smsManager = SmsManager.getDefault()
+        var smsBody = StringBuffer()
+        smsBody.append("http://maps.google.com/maps?q=")
+        smsBody.append(currentlocation.latitude)
+        smsBody.append(",")
+        smsBody.append(currentlocation.longitude)
+        smsManager.sendTextMessage(phonenumber,null,smsBody.toString(),null,null)
+
+
+    }
+    private fun onclickpro() {
+        startActivity(
+            Intent(
+                this,
+                com.example.salvager.profileActivity::class.java
+            )
+        )
+    }
+
+    private fun onclickhome() {
+        startActivity(Intent(this, MapsActivity::class.java))
     }
 }
