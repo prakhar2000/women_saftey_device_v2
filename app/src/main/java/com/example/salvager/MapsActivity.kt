@@ -1,34 +1,35 @@
 package com.example.salvager
 
+import android.Manifest
 import android.Manifest.permission
-import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.location.Location
-import androidx.appcompat.app.AppCompatActivity
+import android.os.Build
 import android.os.Bundle
 import android.telephony.SmsManager
-import android.view.View
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
+import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import com.example.salvager.R.id
+import com.example.salvager.databinding.ActivityMapsBinding
+import com.example.salvager.emergency_contacts
+import com.google.android.gms.location.*
+import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
-import com.example.salvager.databinding.ActivityMapsBinding
-import com.google.android.gms.location.*
-import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
-import com.google.firebase.database.ktx.database
-import com.google.firebase.ktx.Firebase
+import kotlinx.android.synthetic.main.activity_emergency_contacts.*
+
 import kotlinx.android.synthetic.main.activity_maps.*
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
@@ -36,9 +37,23 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var map: GoogleMap
     private lateinit var binding: ActivityMapsBinding
 
-private lateinit var aec: Button
     //----------------------------------------------------
 
+     var flag:Boolean=false
+    lateinit var num1:String
+
+    lateinit var num2:String
+
+    lateinit var num3:String
+    lateinit var longi: String
+    lateinit var lati: String
+
+    private val PERMISSION_REQUEST = 10
+    private var permission = arrayOf(
+        android.Manifest.permission.ACCESS_FINE_LOCATION,
+        android.Manifest.permission.ACCESS_COARSE_LOCATION,
+        android.Manifest.permission.SEND_SMS,android.Manifest.permission.INTERNET
+    )
     lateinit var context: Context
     var firebaseDatabase: FirebaseDatabase? = null
 
@@ -46,8 +61,6 @@ private lateinit var aec: Button
     // Database Reference for Firebase.
     var databaseReference: DatabaseReference? = null
 
-    // variable for Text view.
-    private var retriveTV: TextView? = null
 
     //----------------------------------------------------
 
@@ -79,6 +92,34 @@ private lateinit var aec: Button
                     if (location != null) {
                         val latLng = LatLng(location.latitude, location.longitude)
 
+                        longi=location.longitude.toString()
+                        lati=location.latitude.toString()
+                        if(flag==true) {
+
+                            val mPrefs: SharedPreferences = getSharedPreferences("numbers", 0)
+                            num1 = mPrefs.getString("number1","").toString()
+                            num2 = mPrefs.getString("number2","").toString()
+                            num3 = mPrefs.getString("number3","").toString()
+//
+//        sendlocation(num1,longi,lati)
+//
+//        sendlocation(num2,longi,lati)
+//
+//        sendlocation(num3,longi,lati)
+
+                            Toast.makeText(context , num1.toString(),Toast.LENGTH_LONG).show()
+
+                            Toast.makeText(context , num3.toString(),Toast.LENGTH_LONG).show()
+
+                            Toast.makeText(context , num2.toString(),Toast.LENGTH_LONG).show()
+                        sendlocation(num1,longi,lati)
+
+                        sendlocation(num2,longi,lati)
+
+                        sendlocation(num3,longi,lati)
+flag=false
+                        }
+
                         Toast.makeText(context , latLng.toString(),Toast.LENGTH_LONG).show()
                         val markerOptions = MarkerOptions().position(latLng)
                         map.addMarker(markerOptions)
@@ -91,29 +132,46 @@ private lateinit var aec: Button
     }
 
     private fun startLocationUpdates() {
+//        if (ActivityCompat.checkSelfPermission(
+//                this,
+//                permission.ACCESS_FINE_LOCATION
+//            ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+//                this,
+//                permission.ACCESS_COARSE_LOCATION
+//            ) != PackageManager.PERMISSION_GRANTED
+//        ) {
+//            // TODO: Consider calling
+//            //    ActivityCompat#requestPermissions
+//            // here to request the missing permissions, and then overriding
+//            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+//            //                                          int[] grantResults)
+//            // to handle the case where the user grants the permission. See the documentation
+//            // for ActivityCompat#requestPermissions for more details.
+//            return
+//        }
+//        if (ActivityCompat.checkSelfPermission(
+//                this,
+//                permission.ACCESS_FINE_LOCATION
+//            ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+//                this,
+//                permission.ACCESS_COARSE_LOCATION
+//            ) != PackageManager.PERMISSION_GRANTED
+//        ) {
+//            // TODO: Consider calling
+//            //    ActivityCompat#requestPermissions
+//            // here to request the missing permissions, and then overriding
+//            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+//            //                                          int[] grantResults)
+//            // to handle the case where the user grants the permission. See the documentation
+//            // for ActivityCompat#requestPermissions for more details.
+//            return
+//        }
         if (ActivityCompat.checkSelfPermission(
                 this,
-                permission.ACCESS_FINE_LOCATION
+                Manifest.permission.ACCESS_FINE_LOCATION
             ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
                 this,
-                permission.ACCESS_COARSE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED
-        ) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-            return
-        }
-        if (ActivityCompat.checkSelfPermission(
-                this,
-                permission.ACCESS_FINE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
-                this,
-                permission.ACCESS_COARSE_LOCATION
+                Manifest.permission.ACCESS_COARSE_LOCATION
             ) != PackageManager.PERMISSION_GRANTED
         ) {
             // TODO: Consider calling
@@ -130,10 +188,20 @@ private lateinit var aec: Button
 
 
     //------------------------------------------------------main functn-------------------
+    @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-
+        if (checkPermission(this, permission)) {
+            Toast.makeText(this, "Permission already given", Toast.LENGTH_SHORT).show()
+        } else {
+            requestPermissions(permission, PERMISSION_REQUEST)
+        }
+//        setContentView(R.layout.activity_maps)
+//
+//
+//        val addEmergencyContacts = findViewById<TextView>(com.example.salvager.R.id.aec)
+//        addEmergencyContacts.setOnClickListener{onclickec()}
         //---------------------------------------------------------------
         // below line is used to get the instance
         // of our Firebase database.
@@ -151,32 +219,16 @@ private lateinit var aec: Button
         context=this
         getdata()
         //---------------------------------------------------------------
-        val mPrefs: SharedPreferences = getSharedPreferences("numbers", 0)
-        val num1 = mPrefs.getString("number1","").toString()
-        val num2 = mPrefs.getString("number2","").toString()
-        val num3 = mPrefs.getString("number3","").toString()
 
-        Toast.makeText(context , num1.toString(),Toast.LENGTH_LONG).show()
-
-        Toast.makeText(context , num3.toString(),Toast.LENGTH_LONG).show()
-
-        Toast.makeText(context , num2.toString(),Toast.LENGTH_LONG).show()
 
         //----------------------------------------------------
-
 //
+//         sign_out.setOnClickListener {
+//            FirebaseAuth.getInstance().signOut()
 //
-//        val profilemem= findViewById<TextView>(R.id.profile)
-//        profilemem.setOnClickListener{onclickpro()}
-
-//         aec= findViewById<Button>(R.id.button2)!!
-//        aec.setOnClickListener{}
-//        aec.setOnClickListener(View.OnClickListener { })
-
-//        val homepage=findViewById<TextView>(R.id.home)
-//        homepage.setOnClickListener{ onclickhome() }
-
-
+//            startActivity(Intent(this, LoginActivity::class.java))
+//            finish()
+//        }
 
         binding = ActivityMapsBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -187,49 +239,79 @@ private lateinit var aec: Button
         mapFragment.getMapAsync(this)
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
+
+
+
     }
 
-    private fun onclickaec() {
-        startActivity(
-            Intent(
-                this,
-                com.example.salvager.emergency_contacts::class.java
-            )
-        )
-    }
+
 
 
     //----------------------------------------------------
 
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        if (requestCode == LOCATION_PERMISSION_REQUEST) {
-            if (grantResults.contains(PackageManager.PERMISSION_GRANTED)) {
-                if (ActivityCompat.checkSelfPermission(
-                        this,
-                        permission.ACCESS_FINE_LOCATION
-                    ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
-                        this,
-                        permission.ACCESS_COARSE_LOCATION
-                    ) != PackageManager.PERMISSION_GRANTED
-                ) {
-                    // TODO: Consider calling
-                    //    ActivityCompat#requestPermissions
-                    // here to request the missing permissions, and then overriding
-                    //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                    //                                          int[] grantResults)
-                    // to handle the case where the user grants the permission. See the documentation
-                    // for ActivityCompat#requestPermissions for more details.
-                    return
+        if (requestCode == PERMISSION_REQUEST) {
+            var allsuccess = true
+            for (i in permissions.indices) {
+                if (grantResults[i] == PackageManager.PERMISSION_DENIED) {
+                    allsuccess = false
+                    var requestAgain =
+                        (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && shouldShowRequestPermissionRationale(
+                            permissions[i]
+                        ))
+                    if (requestAgain) {
+                        Toast.makeText(this, "Permission denied", Toast.LENGTH_SHORT).show()
+                    } else {
+                        Toast.makeText(
+                            this,
+                            "Go to settinga and enable the permissions",
+                            Toast.LENGTH_SHORT
+                        ).show()
+
+                    }
                 }
-                map.isMyLocationEnabled = true
             }
-            else {
-                Toast.makeText(this, "User has not granted location access permission", Toast.LENGTH_LONG).show()
-                finish()
+            if (allsuccess) {
+                Toast.makeText(this, "Permission Granted", Toast.LENGTH_SHORT).show()
             }
         }
     }
+//    }
+//    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
+//        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+//        if (requestCode == LOCATION_PERMISSION_REQUEST) {
+//            if (grantResults.contains(PackageManager.PERMISSION_GRANTED)) {
+//                if (ActivityCompat.checkSelfPermission(
+//                        this,
+//                        permission.ACCESS_FINE_LOCATION
+//                    ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+//                        this,
+//                        permission.ACCESS_COARSE_LOCATION
+//                    ) != PackageManager.PERMISSION_GRANTED
+//                ) {
+//                    // TODO: Consider calling
+//                    //    ActivityCompat#requestPermissions
+//                    // here to request the missing permissions, and then overriding
+//                    //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+//                    //                                          int[] grantResults)
+//                    // to handle the case where the user grants the permission. See the documentation
+//                    // for ActivityCompat#requestPermissions for more details.
+//                    return
+//                }
+//                map.isMyLocationEnabled = true
+//            }
+//            else {
+//                Toast.makeText(this, "User has not granted location access permission", Toast.LENGTH_LONG).show()
+//                finish()
+//            }
+//        }
+
 
     /**
      * Manipulates the map once available.
@@ -240,6 +322,20 @@ private lateinit var aec: Button
      * it inside the SupportMapFragment. This method will only be triggered once the user has
      * installed Google Play services and returned to the app.
      */
+
+    fun checkPermission(context: Context, permissionArray: Array<String>): Boolean {
+        var allsuccess = true
+        for (i in permissionArray.indices) {
+            if (checkCallingOrSelfPermission(permissionArray[i]) == PackageManager.PERMISSION_DENIED) {
+                allsuccess = false
+            }
+
+        }
+
+
+        return allsuccess
+    }
+
     override fun onMapReady(googleMap: GoogleMap) {
         map = googleMap
         getLocationAccess()
@@ -261,6 +357,10 @@ private lateinit var aec: Button
 
                 if (value != null) {
                     if(value>400){
+
+
+                        flag=true
+
                         //                    val value2=heart rate ki
 
                     }
@@ -289,13 +389,13 @@ private lateinit var aec: Button
         })
     }
 
-    fun sendlocation(phonenumber: String, currentlocation: Location){
+    fun sendlocation(phonenumber: String, longi:String,lati:String){
         var smsManager = SmsManager.getDefault()
         var smsBody = StringBuffer()
         smsBody.append("http://maps.google.com/maps?q=")
-        smsBody.append(currentlocation.latitude)
+        smsBody.append(lati)
         smsBody.append(",")
-        smsBody.append(currentlocation.longitude)
+        smsBody.append(longi)
         smsManager.sendTextMessage(phonenumber,null,smsBody.toString(),null,null)
 
 
@@ -304,9 +404,15 @@ private lateinit var aec: Button
         startActivity(
             Intent(
                 this,
-                com.example.salvager.profileActivity::class.java
+                profileActivity::class.java
             )
         )
+    }
+
+
+
+    fun onclickec(view: android.view.View) {
+        startActivity(Intent(this,com.example.salvager.emergency_contacts::class.java))
     }
 
     private fun onclickhome() {

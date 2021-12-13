@@ -7,7 +7,7 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.core.content.ContextCompat.startActivity
 import com.google.firebase.auth.FirebaseAuth
-import kotlinx.android.synthetic.main.activity_maps.*
+import kotlinx.android.synthetic.main.activity_profile.*
 
 class profileActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,5 +37,7 @@ class profileActivity : AppCompatActivity() {
     private fun onclickhome() {
         startActivity(Intent(this, MapsActivity::class.java))
     }
+
+
 
 }

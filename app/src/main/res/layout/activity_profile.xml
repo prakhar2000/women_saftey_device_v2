@@ -199,7 +199,8 @@
         app:layout_constraintEnd_toStartOf="@+id/sign_out"
         app:layout_constraintHorizontal_bias="0.836"
         app:layout_constraintStart_toEndOf="@+id/profile"
-        tools:ignore="MissingConstraints" />
+        tools:ignore="MissingConstraints"
+        />
 
     <TextView
         android:id="@+id/sign_out"
