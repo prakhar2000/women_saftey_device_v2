@@ -36,7 +36,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="10dp"
-            android:text="Wiliam Snoe"
+            android:text="Shubham"
             android:textColor="#fff"
             android:textSize="21sp"
             android:textStyle="bold" />
@@ -65,7 +65,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:paddingLeft="20dp"
-            android:text="Wiliam@gmail.com"
+            android:text="test456@test.com"
             android:textColor="@color/white"
             android:textStyle="bold" />
     </LinearLayout>
@@ -91,7 +91,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:paddingLeft="20dp"
-            android:text="+266 225 225"
+            android:text="+6359827410"
             android:textColor="@color/white"
             android:textStyle="bold" />
     </LinearLayout>
@@ -116,7 +116,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:paddingLeft="20dp"
-            android:text="Address"
+            android:text="349,panchsheel street,near GIC ground,Muzaffarnagar"
             android:textColor="@color/white"
             android:textStyle="bold" />
     </LinearLayout>
@@ -132,19 +132,19 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
-        <ImageView
-            android:layout_width="36dp"
-            android:layout_height="36dp"
-            android:src="@drawable/ic_baseline_add_alert_24" />
+<!--        <ImageView-->
+<!--            android:layout_width="36dp"-->
+<!--            android:layout_height="36dp"-->
+<!--            android:src="@drawable/ic_baseline_add_alert_24" />-->
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:paddingLeft="20dp"
-            android:text="Safety Mode"
-            android:textColor="@color/white"
-            android:textStyle="bold" />
+<!--        <TextView-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_gravity="center_vertical"-->
+<!--            android:paddingLeft="20dp"-->
+<!--            android:text="Safety Mode"-->
+<!--            android:textColor="@color/white"-->
+<!--            android:textStyle="bold" />-->
     </LinearLayout>
 
     <TextView

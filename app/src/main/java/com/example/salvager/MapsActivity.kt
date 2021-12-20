@@ -107,11 +107,11 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 //
 //        sendlocation(num3,longi,lati)
 
-                            Toast.makeText(context , num1.toString(),Toast.LENGTH_LONG).show()
-
-                            Toast.makeText(context , num3.toString(),Toast.LENGTH_LONG).show()
-
-                            Toast.makeText(context , num2.toString(),Toast.LENGTH_LONG).show()
+//                            Toast.makeText(context , num1.toString(),Toast.LENGTH_LONG).show()
+//
+//                            Toast.makeText(context , num3.toString(),Toast.LENGTH_LONG).show()
+//
+//                            Toast.makeText(context , num2.toString(),Toast.LENGTH_LONG).show()
                         sendlocation(num1,longi,lati)
 
                         sendlocation(num2,longi,lati)
@@ -221,6 +221,8 @@ flag=false
         //---------------------------------------------------------------
 
 
+
+        flag=true
         //----------------------------------------------------
 //
 //         sign_out.setOnClickListener {
@@ -359,7 +361,6 @@ flag=false
                     if(value>400){
 
 
-                        flag=true
 
                         //                    val value2=heart rate ki
 
@@ -377,8 +378,8 @@ flag=false
 ////                    val intent = Intent(context, BadTouch::class.java)
 ////                    startActivity(intent)
 //                }
-
-                Toast.makeText(context , value.toString(),Toast.LENGTH_LONG).show()
+//------------------------------------------
+//                Toast.makeText(context , value.toString(),Toast.LENGTH_LONG).show()
             }
 
             override fun onCancelled(error: DatabaseError) {
